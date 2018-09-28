@@ -1,0 +1,27 @@
+\begin{thebibliography}{1}
+
+\bibitem{bowman2017probabilistic}
+Sean~L Bowman, Nikolay Atanasov, Kostas Daniilidis, and George~J Pappas.
+\newblock Probabilistic data association for semantic slam.
+\newblock In {\em Robotics and Automation (ICRA), 2017 IEEE International
+  Conference on}, pages 1722--1729. IEEE, 2017.
+
+\bibitem{engel2017direct}
+Jakob Engel, Vladlen Koltun, and Daniel Cremers.
+\newblock Direct sparse odometry.
+\newblock {\em IEEE transactions on pattern analysis and machine intelligence},
+  4, 2017.
+
+\bibitem{engel2014lsd}
+Jakob Engel, Thomas Sch{\"o}ps, and Daniel Cremers.
+\newblock Lsd-slam: Large-scale direct monocular slam.
+\newblock In {\em European Conference on Computer Vision}, pages 834--849.
+  Springer, 2014.
+
+\bibitem{forster2014svo}
+Christian Forster, Matia Pizzoli, and Davide Scaramuzza.
+\newblock Svo: Fast semi-direct monocular visual odometry.
+\newblock In {\em Robotics and Automation (ICRA), 2014 IEEE International
+  Conference on}, pages 15--22. IEEE, 2014.
+
+\end{thebibliography}
