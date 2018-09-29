@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.28)  29 SEP 2018 13:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.28)  29 SEP 2018 15:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -295,25 +295,25 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<figs/dso-framework-cn.jpg, id=74, 722.7pt x 393.47pt>
-File: figs/dso-framework-cn.jpg Graphic file (type jpg)
-<use figs/dso-framework-cn.jpg>
-Package pdftex.def Info: figs/dso-framework-cn.jpg  used on input line 57.
-(pdftex.def)             Requested size: 409.72125pt x 223.07344pt.
- [2] [3 <./figs/dso-framework-cn.jpg>] [4]
-<figs/frontend-cn.jpg, id=106, 722.7pt x 819.06pt>
-File: figs/frontend-cn.jpg Graphic file (type jpg)
-<use figs/frontend-cn.jpg>
-Package pdftex.def Info: figs/frontend-cn.jpg  used on input line 114.
-(pdftex.def)             Requested size: 409.72125pt x 464.35698pt.
- [5 <./figs/frontend-cn.jpg>]
-<figs/H.jpg, id=115, 602.25pt x 330.23375pt>
+<figs/framework-dso-en.pdf, id=73, 1615.57582pt x 770.88pt>
+File: figs/framework-dso-en.pdf Graphic file (type pdf)
+<use figs/framework-dso-en.pdf>
+Package pdftex.def Info: figs/framework-dso-en.pdf  used on input line 57.
+(pdftex.def)             Requested size: 512.14963pt x 244.3694pt.
+ [2] [3 <./figs/framework-dso-en.pdf>] [4]
+<figs/frontend-en.pdf, id=125, 916.08147pt x 994.54158pt>
+File: figs/frontend-en.pdf Graphic file (type pdf)
+<use figs/frontend-en.pdf>
+Package pdftex.def Info: figs/frontend-en.pdf  used on input line 114.
+(pdftex.def)             Requested size: 409.72125pt x 444.808pt.
+ [5 <./figs/frontend-en.pdf>]
+<figs/H.jpg, id=157, 602.25pt x 330.23375pt>
 File: figs/H.jpg Graphic file (type jpg)
 <use figs/H.jpg>
 Package pdftex.def Info: figs/H.jpg  used on input line 137.
 (pdftex.def)             Requested size: 409.72125pt x 224.67186pt.
  [6 <./figs/H.jpg>]
-<figs/nullspace.jpg, id=131, 602.25pt x 333.245pt>
+<figs/nullspace.jpg, id=174, 602.25pt x 333.245pt>
 File: figs/nullspace.jpg Graphic file (type jpg)
 <use figs/nullspace.jpg>
 Package pdftex.def Info: figs/nullspace.jpg  used on input line 166.
@@ -332,12 +332,12 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 178.
  ) 
 Here is how much of TeX's memory you used:
  5887 strings out of 492982
- 86403 string characters out of 6134896
+ 86451 string characters out of 6134896
  179501 words of memory out of 5000000
  9371 multiletter control sequences out of 15000+600000
  9028 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,8n,28p,1527b,398s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,8n,28p,1531b,398s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -350,10 +350,10 @@ sfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on note_on_dso.pdf (8 pages, 424289 bytes).
+Output written on note_on_dso.pdf (8 pages, 1584919 bytes).
 PDF statistics:
- 208 PDF objects out of 1000 (max. 8388607)
- 179 compressed objects within 2 object streams
+ 250 PDF objects out of 1000 (max. 8388607)
+ 196 compressed objects within 2 object streams
  53 named destinations out of 1000 (max. 500000)
  101 words of extra memory for PDF output out of 10000 (max. 10000000)
 

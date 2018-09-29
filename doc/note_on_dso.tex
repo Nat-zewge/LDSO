@@ -54,7 +54,7 @@
 	\subsection{Framework of DSO}
 	\begin{figure}[htp]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figs/dso-framework-cn.jpg}
+	\includegraphics[width=1.0\textwidth]{figs/framework-dso-en}
 	\caption{Framework of DSO.}
 	\label{fig:framework-dso}
 	\end{figure}
@@ -111,7 +111,7 @@
 	\begin{figure}[!thp]
 	\centering
 	\label{fig:frontend-dso}
-	\includegraphics[width=0.8\textwidth]{figs/frontend-cn.jpg}
+	\includegraphics[width=0.8\textwidth]{figs/frontend-en}
 	\caption{Pipeline of the frontend.}
 	\end{figure}
 	The frontend pipeline of DSO is illustrated in Fig.\ref{fig:frontend-dso}. Although the specific meaning of each step is not explained, the general flow of the DSO can be seen. From the above figure, we can briefly summarize the behavior of DSO:
@@ -139,7 +139,7 @@
 		\label{fig:H-dso}
 	\end{figure}
 		
-	DSO's BA, like the traditional BA, has the above steps. Therefore, when the DSO solves the BA in sliding window, it should marginalize all the points and calculates the optimized update amount in the pose part. However, unlike the traditional BA, the upper left part of the DSO, i.e., the $\mathbf{B}$ in the formula, is not a diagonal block matrix but added by a priori. In the traditional batch BA, this part is a diagonal block matrix. The main reason is that the prior motion of the camera movement is unknown, but in the sliding window of the DSO, this can be calculated by the previous motion information. The a priori here comes mainly from two parts:
+	DSO's BA, like the traditional BA, has the above steps. Therefore, when the DSO solves the BA in sliding window, it should marginalize all the points and calculates the optimized update amount in the pose part. However, unlike the traditional BA, the upper left part of the DSO is not a diagonal block matrix but added by a priori. In the traditional batch BA, this part is a diagonal block matrix. The main reason is that the prior motion of the camera movement is unknown, but in the sliding window of the DSO, this can be calculated by the previous motion information. The a priori here comes mainly from two parts:
 	\begin{enumerate}
 	\item When a point is marged, a priori is generated between the co-visible frames of the point;
 	\item When a frame is marged, a priori is generated between other co-visible frames in the window;
