@@ -6,11 +6,26 @@
 \geometry{a4paper,left=1.5cm,right=1.5cm,top=3cm,bottom=4cm}
 
 \title{Notes on DSO}
-\author{Xiang}
+\author{Xiang Gao}
 \date{\today}
 
 \begin{document}
 	\maketitle
+	
+	\begin{quotation}
+		\centering
+		Listen, my friend: the ages that are past
+		
+		Are now a book with seven seals protected:
+		
+		What you the Spirit of the Ages call
+		
+		Is nothing but the spirit of you all,
+		
+		Wherein the Ages are reflected.
+		
+		--Faust, Johann Wolfgang Von Goethe
+	\end{quotation}
 	
 	\section{Introduction on DSO}
 	\subsection{What is DSO}
@@ -39,9 +54,9 @@
 	\subsection{Framework of DSO}
 	\begin{figure}[htp]
 	\centering
-	\label{fig:framework-dso}
 	\includegraphics[width=0.8\textwidth]{figs/dso-framework-cn.jpg}
 	\caption{Framework of DSO.}
+	\label{fig:framework-dso}
 	\end{figure}
 	First let's look at the general framework of DSO. I removed some unimportant classes and structures for the readers. See Fig.\ref{fig:framework-dso} for details (English version will be added later).
 	
@@ -109,26 +124,54 @@
 	
 	\subsection{Backend}
 	\subsubsection{Marginalization}
-	The keyframes and the residuals of the map points, form the content of the entire sliding window. To optimize these frames and points, we will iterate using the Gauss-Newton or Levernberg-Marquardt methods. In the iteration, all residual terms can be combined into a large linear equation:\textbf{\textbf{\textbf{}}}
+	The keyframes and the residuals of the map points, form the content of the entire sliding window. To optimize these frames and points, we will iterate using the Gauss-Newton or Levernberg-Marquardt methods. In each iteration, all residual terms can be combined into a large linear equation:
 	\begin{equation}
 	\mathbf{J}^T \mathbf{W} \mathbf{J} \delta \mathbf{x}=-\mathbf{J}^T \mathbf{W} \mathbf{r},
 	\end{equation}
-	This process is also called Marginalization, when we marginalize all the points and put their information into the pose part, forming a priori of the camera pose. This part of the knowledge should be familiar to every SLAM researcher.
+	Where $\mathbf{J}$, $\mathbf{W}$, $\mathbf{r}$ are the Jacobians, weights and residuals, respectively, and $\delta \mathbf{x}$ is the overall optimized update (innovation). The left side can be written as: $\mathbf{J}^T \mathbf{WJ}=\mathbf{H}$, which is the Hessian matrix. This matrix is maintained in memory throughout the optimization process. Note that this approach is different from some batch optimization systems like ORB-SLAM2. The back end of ORB-SLAM2 will continuously rebuild the entire optimization problem, solve it, and then fetch the optimized result, deconstruct the optimization problem. In DSO, since the problem is always maintained, subsequential optimizations can take advantage of previous results, or previous optimizations provide a prior for the next step. However, in order to maintain these information, DSO must manually add/delete each frame and point, unlike the ORB-SLAM2, which can directly start from any given frames and points.
 	
-	So where is the use of marginalization in DSO?
+	In batch bundle adjustment the $\mathbf{H}$ matrix has a very famous arrow-like shape as illustrated in Fig.\ref{fig:H-dso}. We can take advantange of this special sparse structure to accelerate the solving of the linear problem. This is somewhat missleadingly called as \textbf{Marginalization}, and implemented by sparse Schur complement (Schur trick) or sparse Cholesky decomposition. In the Schur trick, we marginaliza all the points into the pose information, solve the pose equations, and then substitute the results into the points part, which can substantially reduce the computation time. 
 	
-	First of all, DSO's BA, like the traditional BA, has the above steps. Therefore, when the DSO solves the BA, it marginalizes all the points and calculates the optimized update amount in the pose part. However, unlike the traditional BA, the upper left part of the DSO, i.e., the $\mathbf{B}$ in the formula, is not a diagonal block matrix but added by a priori. In the traditional BA, this part is a diagonal block. The main reason is that the prior motion of the camera movement is not known, and the sliding window of the DSO is calculated by a certain means. The a priori here comes mainly from two parts:
-	When a point is marged, a priori is generated between the common frames of the point;
-	When a frame is marged, a priori is generated between other frames in the window;
-	Here, "marginalization", the specific operation is the same as the marginalization mentioned above. That is to say, through Shure complement, use part of the matrix to eliminate another part of the matrix. However, the meaning of the actual operation is different. In the marginalization of BA, we hope to use marginalization to accelerate the solution of the whole problem, but after solving the problem, these frames and points still exist in the window! The marginalization in the sliding window means that we no longer need this point/this frame. When it is marginalized, we pass its information to the subsequent a priori, and will not use this point/this frame anymore! The reader must be clear about this difference, otherwise you will encounter problems during the understanding process. We might as well call the latter "permanent marginalization" to distinguish.
-	So how does DSO permanently marginalize a frame or point? It follows the following guidelines:
-	If a point is no longer in the field of view of the camera, marginalize this point;
-	If the number of frames in the sliding window has exceeded the set threshold, then select one of the frames for marginalization;
-	When a frame is marginalized, the map points that dominate it will be removed and will not participate in future calculations. Otherwise this point will form a priori with other points, destroying the sparse structure in BA [10].
-	In the process of marginalization, the DSO maintains a priori information between frames (see EnergyFunctional::HM and bM) and uses this information in the solution of the BA.
-	
-	\subsection{Loop Closing}
+	\begin{figure}[!thp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{figs/H.jpg}
+		\caption{Arrow-like Hessian matrix in batch BA.}
+		\label{fig:H-dso}
+	\end{figure}
 		
+	DSO's BA, like the traditional BA, has the above steps. Therefore, when the DSO solves the BA in sliding window, it should marginalize all the points and calculates the optimized update amount in the pose part. However, unlike the traditional BA, the upper left part of the DSO, i.e., the $\mathbf{B}$ in the formula, is not a diagonal block matrix but added by a priori. In the traditional batch BA, this part is a diagonal block matrix. The main reason is that the prior motion of the camera movement is unknown, but in the sliding window of the DSO, this can be calculated by the previous motion information. The a priori here comes mainly from two parts:
+	\begin{enumerate}
+	\item When a point is marged, a priori is generated between the co-visible frames of the point;
+	\item When a frame is marged, a priori is generated between other co-visible frames in the window;
+	\end{enumerate}
+	
+	Here, "marginalization", the specific operation is the same as the marginalization mentioned above. That is to say, we use eliminate some part of the matrix via Shure complement. However, the actual meaning of the operation is different. In the marginalization of batch BA, we want to use marginalization to accelerate the solution of the linear problem, but after solving the problem, these frames and points still exist in the window! On the other side, the marginalization in the sliding window means that we no longer need this point/this frame. When it is marginalized, we pass its information to the motion priori, and will \textbf{no longer} use this point/this frame anymore! Readers must be clear about this difference, otherwise you will encounter problems when understanding DSO's code. We might call the former as "temporary marginalization" and the latter as "permanent marginalization" to distinguish them.
+	
+	So how does DSO permanently marginalize a frame or point? It follows the following guidelines:
+	\begin{enumerate}
+	\item If a point is no longer in the field of view of the camera, marginalize this point;
+	\item If the number of frames in the sliding window has exceeded the set threshold, then select one of the frames for marginalization;
+	\item When a frame is marginalized, the map points that use it as the host frame will be marged and will not participate in future calculations. Otherwise this point will form a priori with other points, destroying the sparse structure in BA. This strategy is similar with \cite{leutenegger2015keyframe}. Actually many existing sliding window systems follows part of \cite{leutenegger2015keyframe}.
+	\end{enumerate}
+	
+	The frame motion priori is stored in EnergyFunctional::HM and bM, and DSO directly adds this information into the BA linear equation. If you are using Ceres or other optimization libraries that don't support incremental solving, you probably need to pack this priori information into a fake residual block that is evaluated on all the active keyframes, like what okvis \cite{leutenegger2015keyframe} and VINS \cite{qin2017vins} does.
+	
+	\subsubsection{Null space and FEJ}
+	In SLAM, in the GN or LM optimization process, the Hessian matrix may not be full ranked. The is called as null space, which means if you change the value of the state variable in this subspace, it will not affect the final cost of the objective function. In purely visual SLAM, the typical null space is the absolute scale of the scene and the absolute pose of the camera. In VIO, the null space also includes the yaw dimension. If you are using over-parametrized representations like quaternion as state viariables, it will also lead to extra null spaces in Hessian matrix. It is conceivable that if the camera and the map are simultaneously enlarged by one scale, or rotated and translated at the same time, the entire objective function should not change. The null space also exist in the marginalized motion priori. For example, if the marginalized keyframe has no covisible features with another active keyframe, then the Jacobian matrix will be zero block between them and make a zero block in the Hessian. In okvis \cite{leutenegger2015keyframe} the author made a eigen value decomposition of the margilization Hessian and eliminate those subspaces that have very small eigen values.  The existence of null space also leads to the solution of the linear equation is not unique during the optimization process. Although the step size of each iteration is small, but as time going, it is easy for the whole system to wander in this zero space, causing the estimation to drift.
+	
+	On the other hand, due to the existence of marginalization, if a point is marginalized, its Jacobian matrix should be fixed at the moment of marginalization, while the Jacobian of other points will be updated over time. The timing at which different variables are linearized throughout the system is different. This leads to the dimensionality reduction of the null space - the zero space that should exist, but disappears due to the different linearization moments! And our estimates will become too optimistic. DSO's author has shown a very intuitive example about this phenomenon, see Fig.\ref{fig:nullspace-dso}. 
+	
+	\begin{figure}[!thp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{figs/nullspace.jpg}
+		\caption{Null space disappears if linearization point is different.}
+				\label{fig:nullspace-dso}
+	\end{figure}
+
+	In this example, we minimize an energy function of $E=E_1+E_2=(xy-1)^2+(xy-1)^2$. Obviously the curve xy=1 is the optimal solution, which is exactly one-dimensional null space. However, if $E_1$ and $E_2$ are linearized at different points, the obtained E may cause the zero space of this dimension to disappear (as shown in the figure), when the optimal solution becomes a point.
+	
+	Therefore, in DSO the Jacobi of geometry and luminosity is calculated only at the initial moment of optimization, and they remain unchanged during the following iterations, namely First-Estimate-Jacobian. FEJ forces each point to be linearized at the same time, thus avoiding the problem of null space dimensionality reduction and reducing the amount of computation. For each map point in the DSO, eight residuals are generated from the previously defined pattern, and these residuals also share the FEJ. Since the geometric and photometric functions are relatively smooth, the FEJ approximation is very useful in practice. Actually the direct tracking part of SVO \cite{forster2014svo} also makes use of FEJ, where the Hessian matrix is pre-caculated and only the residuals are updated during the iterations. 
+			
 	\bibliographystyle{plain}
 	\bibliography{reference}
 	

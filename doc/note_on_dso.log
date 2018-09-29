@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.28)  28 SEP 2018 17:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.28)  29 SEP 2018 13:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -288,44 +288,56 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 14.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 17.
+(Font)              <7> on input line 32.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 17.
+(Font)              <5> on input line 32.
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<figs/dso-framework-cn.jpg, id=75, 722.7pt x 393.47pt>
+<figs/dso-framework-cn.jpg, id=74, 722.7pt x 393.47pt>
 File: figs/dso-framework-cn.jpg Graphic file (type jpg)
 <use figs/dso-framework-cn.jpg>
-Package pdftex.def Info: figs/dso-framework-cn.jpg  used on input line 43.
+Package pdftex.def Info: figs/dso-framework-cn.jpg  used on input line 57.
 (pdftex.def)             Requested size: 409.72125pt x 223.07344pt.
- [2] [3 <./figs/dso-framework-cn.jpg>]
-<figs/frontend-cn.jpg, id=93, 722.7pt x 819.06pt>
+ [2] [3 <./figs/dso-framework-cn.jpg>] [4]
+<figs/frontend-cn.jpg, id=106, 722.7pt x 819.06pt>
 File: figs/frontend-cn.jpg Graphic file (type jpg)
 <use figs/frontend-cn.jpg>
-Package pdftex.def Info: figs/frontend-cn.jpg  used on input line 99.
+Package pdftex.def Info: figs/frontend-cn.jpg  used on input line 114.
 (pdftex.def)             Requested size: 409.72125pt x 464.35698pt.
- [4] [5 <./figs/frontend-cn.jpg>] (./note_on_dso.bbl [6])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 135.
+ [5 <./figs/frontend-cn.jpg>]
+<figs/H.jpg, id=115, 602.25pt x 330.23375pt>
+File: figs/H.jpg Graphic file (type jpg)
+<use figs/H.jpg>
+Package pdftex.def Info: figs/H.jpg  used on input line 137.
+(pdftex.def)             Requested size: 409.72125pt x 224.67186pt.
+ [6 <./figs/H.jpg>]
+<figs/nullspace.jpg, id=131, 602.25pt x 333.245pt>
+File: figs/nullspace.jpg Graphic file (type jpg)
+<use figs/nullspace.jpg>
+Package pdftex.def Info: figs/nullspace.jpg  used on input line 166.
+(pdftex.def)             Requested size: 409.72125pt x 226.72054pt.
  [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 135.
-
-(./note_on_dso.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 135.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 135.
+(./note_on_dso.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 178.
+ [8 <./figs/nullspace.jpg>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 178.
+ (./note_on_dso.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 178.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 178.
 Package rerunfilecheck Info: File `note_on_dso.out' has not changed.
-(rerunfilecheck)             Checksum: 4DDAEA9F9B839FF449E24A2D1D398B2D;603.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 135.
+(rerunfilecheck)             Checksum: DA070EA3DCEC8D7F70680BA4E514E505;619.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 178.
  ) 
 Here is how much of TeX's memory you used:
- 5859 strings out of 492982
- 85944 string characters out of 6134896
- 179337 words of memory out of 5000000
- 9355 multiletter control sequences out of 15000+600000
+ 5887 strings out of 492982
+ 86403 string characters out of 6134896
+ 179501 words of memory out of 5000000
+ 9371 multiletter control sequences out of 15000+600000
  9028 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,8n,28p,1448b,427s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,8n,28p,1527b,398s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -338,10 +350,10 @@ sfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on note_on_dso.pdf (7 pages, 293801 bytes).
+Output written on note_on_dso.pdf (8 pages, 424289 bytes).
 PDF statistics:
- 184 PDF objects out of 1000 (max. 8388607)
- 158 compressed objects within 2 object streams
- 43 named destinations out of 1000 (max. 500000)
- 91 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 208 PDF objects out of 1000 (max. 8388607)
+ 179 compressed objects within 2 object streams
+ 53 named destinations out of 1000 (max. 500000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
 
